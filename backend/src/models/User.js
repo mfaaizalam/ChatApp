@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    Email:{
+    email:{
         type:String,
         required:true,
         unique:true
@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     password:{
         type:String,
         required:true, 
-        minlength:8
+        minlength:6
     },
     bio:{
         type:String,
@@ -48,9 +48,6 @@ const userSchema = new mongoose.Schema({
     ]
 
 },{timestamps:true})
-
-const User = mongoose.model("User",userSchema);
-///pre hook
 userSchema.pre("save",async function(next){
     if (!this.isModified("password")) return next();
     try{
@@ -63,5 +60,14 @@ userSchema.pre("save",async function(next){
     }
 
 });
+userSchema.methods.matchPassword = async function(enteredPassword){
+    const isPasswordCorrect = await bycrypt.compare(enteredPassword,this.password);
+    return isPasswordCorrect;};
+
+
+
+const User = mongoose.model("User",userSchema);
+///pre hook
+
 
 export default User;
