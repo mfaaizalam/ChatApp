@@ -103,3 +103,33 @@ export async function acceptFriendRequest(req,res){
          res.status(500).json({message:"Internal Server Error"});
     }
 }
+
+export async function getFriendRequests(req,res) {
+    try {
+        const incommingReqs = await FriendRequest.find({
+            recipient:req.user.id,
+            status:"pending",
+        }).populate("recipient","fullName profilePic nativeLanguage learningLanguage");
+        const acceptedReqs = await FriendRequest.find({
+            sender:req.user.id,
+            status:"accepted",
+        }).populate("recipient","fullName profilePic")
+    }
+    catch(error){
+        console.log("Error in getPendingFriendRequest controller",error.message);
+        res.status(500).json({message:"Internal Server Error"})
+    }
+}
+
+export async function getOutgoingFriendReqs(req,res){
+    try{
+        const outgoingRequests = await FriendRequest.find({
+            sender:req.user.id,
+            status:"pending"
+        }).populate("recipient","fullName profilePic nativeLanguage learningLanguage");
+    }
+    catch(error) {
+             console.log("Error in getOutgoingFriendReqs controller",error.message);
+        res.status(500).json({message:"Internal Server Error"})
+    }
+}

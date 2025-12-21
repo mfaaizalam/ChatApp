@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.route.js";
 import { connectDB } from "./lib/db.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
+import chatRoutes from "./routes/chat.routes.js"
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT
@@ -12,6 +13,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use("/api/auth",authRoutes)
 app.use("/api/user",userRoutes)
+app.use("/api/chat",chatRoutes)
 app.listen(PORT,()=>{
     console.log(`Server is running on PORT ${PORT}`);
     connectDB();
