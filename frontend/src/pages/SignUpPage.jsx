@@ -1,35 +1,31 @@
-import { useState } from "react";
 
+import React, { useState } from 'react'
+import {ShipWheelIcon} from "lucide-react"
+import { useMutation } from '@tanstack/react-query';
+import {axiosInstance} from '../lib/axios.js';
+import { Link } from 'react-router-dom';
+import { useQueryClient } from '@tanstack/react-query';
+import { signup } from '../lib/api.js';
 const SignUpPage = () => {
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    agreeToTerms: false,
+  const [signupData,setSignupData] =useState({
+    fullName:"",
+    email:"",
+    password:"",
+     agreeToTerms: false,
   });
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+    const queryClient = useQueryClient();
+    const {mutate,isPending,error}= useMutation({
+      mutationFn: signup,
+      onSuccess: (data) => queryClient.invalidateQueries(['authUser']),
+    });
 
-  const handleSubmit = () => {
-    if (!formData.agreeToTerms || !formData.fullName || !formData.email || !formData.password) {
-      return;
-    }
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      console.log("Form submitted:", formData);
-    }, 2000);
-  };
+     const handleSignup = (e) =>{
+    e.preventDefault();
+     mutate(signupData);
+  }
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
-  };
-
-  return (
+ 
+     return (
     <>
       {/* 🔥 SCROLLBAR FIX (ONLY FIX ADDED) */}
       <style>{`
@@ -121,8 +117,8 @@ const SignUpPage = () => {
                 <input
                   type="text"
                   name="fullName"
-                  value={formData.fullName}
-                  onChange={handleChange}
+                  value={signupData.fullName}
+                  onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
                   placeholder="your name"
                   className="w-full mb-3 px-4 py-4 bg-black border border-slate-800 rounded-xl text-white"
                 />
@@ -130,8 +126,8 @@ const SignUpPage = () => {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
-                  onChange={handleChange}
+                  value={signupData.email}
+                 onChange={(e) => setSignupData({ ...signupData, email: e.target.value })}
                   placeholder="your email"
                   className="w-full mb-3 px-4 py-4 bg-black border border-slate-800 rounded-xl text-white"
                 />
@@ -139,8 +135,8 @@ const SignUpPage = () => {
                 <input
                   type="password"
                   name="password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  value={signupData.password}
+                  onChange={(e) => setSignupData({ ...signupData, password: e.target.value })}
                   placeholder="password"
                   className="w-full mb-4 px-4 py-4 bg-black border border-slate-800 rounded-xl text-white"
                 />
@@ -149,21 +145,22 @@ const SignUpPage = () => {
                   <input
                     type="checkbox"
                     name="agreeToTerms"
-                    checked={formData.agreeToTerms}
-                    onChange={handleChange}
+                    checked={signupData.agreeToTerms}
+                    onChange={(e) => setSignupData({ ...signupData, agreeToTerms: e.target.checked })}
                   />
                   <span className="text-slate-400 text-sm">
                     i agree to terms & privacy
                   </span>
                 </div>
-
+                
                 <button
-                  onClick={handleSubmit}
-                  disabled={isLoading}
+                  onClick={handleSignup}
+                  disabled={isPending}
                   className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white py-4 rounded-xl font-black"
                 >
-                  {isLoading ? "loading..." : "let’s go 🚀"}
+                  {isPending ? "loading..." : "let’s go 🚀"}
                 </button>
+                
               </div>
             </div>
           </div>
@@ -171,7 +168,7 @@ const SignUpPage = () => {
 
       </div>
     </>
-  );
-};
+  ); 
+}
 
-export default SignUpPage;
+export default SignUpPage
