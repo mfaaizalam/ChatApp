@@ -38,7 +38,15 @@ const Sidebar = () => {
           <UsersIcon className="size-5 text-base-content opacity-70" />
           <span>Friends</span>
         </Link>
-
+          <Link
+          to="/chatbot"
+          className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+            currentPath === "/chatbot" ? "btn-active" : ""
+          }`}
+        >
+          <HomeIcon className="size-5 text-base-content opacity-70" />
+          <span>Chat with AI</span>
+        </Link>
         <Link
           to="/notifications"
           className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${

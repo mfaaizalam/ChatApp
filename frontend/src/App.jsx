@@ -15,6 +15,7 @@ import PageLoader from './components/PageLoader.jsx'
 
 import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './components/Layout.jsx'
+import Chatbot from './pages/Chatbot.jsx'
 const App = () => {
     const{isLoading,authUser} = useAuthUser();
     const isAuthenticated = Boolean(authUser);
@@ -40,12 +41,34 @@ const App = () => {
             )
           }
         />
-          <Route path="/signup" element={!isAuthenticated?<SignUpPage/>:<Navigate to="/onboarding"/>}/>
-          <Route path="/login" element={!isAuthenticated? <LoginPage/> :<Navigate to="/"/>}/>
-          <Route path="/notification" element={isAuthenticated?<NotificationPage/>:<Navigate to="/login"/>}/>
+          <Route path="/signup" 
+          element={
+            !isAuthenticated?<SignUpPage/>:<Navigate to={isOnboarded? '/':"/onboarding"}/>}
+            />
+          <Route path="/login"
+           element={!isAuthenticated? <LoginPage/> :<Navigate to={isOnboarded? '/':"/onboarding"}/>}
+           />
+          <Route path="/notifications"
+           element={isAuthenticated && isOnboarded?
+           (<Layout showSidebar={true}>
+            <NotificationPage/>
+           </Layout>):(
+            <Navigate to = {isAuthenticated? "/login":"/onboarding"}/>
+           )
+           }
+           />
           <Route path="/call" element={isAuthenticated?<CallPage/>:<Navigate to="/login"/>}/>
           <Route path="/chat" element={isAuthenticated?<ChatPage/>:<Navigate to= "/login"/>}/>
-          <Route
+          <Route path="/onboarding" element={isAuthenticated?<OnboardingPage/>:<Navigate to= "/login"/>}/>
+          <Route path="/chatbot" element={isAuthenticated && isOnboarded ? ( 
+            <Layout showSidebar={true}>
+              <Chatbot />
+            </Layout>
+          ) : (
+            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
+          )}
+          />
+           {/* <Route
           path="/onboarding"
           element={
             isAuthenticated ? (
@@ -58,7 +81,8 @@ const App = () => {
               <Navigate to="/login" />
             )
           }
-        />
+        />  */}
+       
       </Routes>
       <Toaster/>
     </div>
