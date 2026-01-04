@@ -15,7 +15,7 @@ import PageLoader from './components/PageLoader.jsx'
 
 import useAuthUser from './hooks/useAuthUser.js'
 import Layout from './components/Layout.jsx'
-import Chatbot from './pages/Chatbot.jsx'
+
 const App = () => {
     const{isLoading,authUser} = useAuthUser();
     const isAuthenticated = Boolean(authUser);
@@ -27,7 +27,7 @@ const App = () => {
     }
 
   return (
-    <div className='h-screen ' data-theme="coffee">
+    <div className='h-screen '>
       <Routes>
           <Route
           path="/"
@@ -68,7 +68,7 @@ const App = () => {
 
           <Route path="/chat/:id"
            element={isAuthenticated && isOnboarded ?(
-            <Layout showSidebar={true}>
+            <Layout showSidebar={false}>
               <ChatPage/>
             </Layout>
            ):(
@@ -77,14 +77,7 @@ const App = () => {
           />   
           <Route path="/onboarding" element={isAuthenticated?<OnboardingPage/>:<Navigate to= "/login"/>}/>
 
-          <Route path="/chatbot" element={isAuthenticated && isOnboarded ? ( 
-            <Layout showSidebar={false}>
-              <Chatbot />
-            </Layout>
-          ) : (
-            <Navigate to={!isAuthenticated ? "/login" : "/onboarding"} />
-          )}
-          />
+          
            {/* <Route
           path="/onboarding"
           element={

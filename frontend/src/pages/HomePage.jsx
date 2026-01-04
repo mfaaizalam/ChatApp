@@ -54,7 +54,8 @@ const HomePage = () => {
   }, [outgoingFriendReqs]);
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
+    <div className="relative h-screen">
+  <div className="ml-12 mr-12 pt-16 lg:pl-64 overflow-y-auto p-4 sm:p-6 lg:p-8 min-h-screen">
       <div className="container mx-auto space-y-10">
         {/* Friends section */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -189,6 +190,7 @@ const HomePage = () => {
           )}
         </section>
       </div>
+    </div>
     </div>
   );
 };

@@ -95,7 +95,7 @@ const ChatPage = () => {
   if (loading || !chatClient || !channel) return <ChatLoader />;
 
   return (
-    <div className="h-[93vh]">
+    <div className="ml-44 h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
           <div className="w-full relative">
@@ -113,3 +113,4 @@ const ChatPage = () => {
   );
 };
 export default ChatPage;
+

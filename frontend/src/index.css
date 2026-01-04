@@ -1,7 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
 .str-chat__channel {
   display: flex;
   align-items: center;
