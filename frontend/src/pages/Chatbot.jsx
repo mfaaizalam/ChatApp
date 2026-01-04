@@ -5,42 +5,33 @@ export default function Chatbot() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const API_KEY = "AIzaSyC6pn03PInOb2TMDD2q8ktpGlyiAQJW-S8";
-  const MODEL_NAME = "gemini-1.5-flash";
+  // 🔴 OpenAI API KEY (demo only – frontend me unsafe hoti hai)
+  const OPENAI_API_KEY = "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";
+  const OPENAI_MODEL = "gpt-4o-mini";
 
-  const sendToGemini = async (msg) => {
+  const sendToOpenAI = async (msg) => {
     try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1/models/${MODEL_NAME}:generateContent?key=${API_KEY}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [
-                  {
-                    text: `Tum agriculture expert ho. Simple Urdu me jawab do.\nUser: ${msg}`,
-                  },
-                ],
-              },
-            ],
-          }),
-        }
-      );
+      const response = await fetch("https://api.openai.com/v1/responses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: OPENAI_MODEL,
+          input: `Tum agriculture expert ho. Simple Urdu me jawab do.\nUser: ${msg}`,
+        }),
+      });
 
       const data = await response.json();
-      console.log("Gemini response:", data);
+      console.log("OpenAI response:", data);
 
       if (!response.ok) {
         return `Error: ${data.error?.message || "Request failed"}`;
       }
 
       return (
-        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        data?.output_text ||
         "Samajh nahi aaya, dobara likho."
       );
     } catch (error) {
@@ -57,7 +48,7 @@ export default function Chatbot() {
     setInput("");
     setLoading(true);
 
-    const reply = await sendToGemini(userMsg);
+    const reply = await sendToOpenAI(userMsg);
     setMessages((prev) => [...prev, { role: "bot", text: reply }]);
     setLoading(false);
   };
@@ -96,6 +87,7 @@ export default function Chatbot() {
               </span>
             </div>
           ))}
+
           {loading && (
             <p className="text-emerald-200 italic">
               ⏳ Soch raha hoon...
