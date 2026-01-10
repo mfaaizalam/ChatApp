@@ -25,9 +25,11 @@ export async function signup(req, res) {
       return res.status(400).json({ message: "Email already exists, please use a diffrent one" });
     }
 
-    const idx = Math.floor(Math.random() * 100) + 1; // generate a num between 1-100
-    const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
+    // const idx = Math.floor(Math.random() * 100) + 1; // generate a num between 1-100
+    // const randomAvatar = `https://avatar.iran.liara.run/public/${idx}.png`;
 
+    const idx = Math.floor(Math.random() * 1000); // random seed
+  const randomAvatar = `https://api.dicebear.com/6.x/bottts/svg?seed=${idx}`;
     const newUser = await User.create({
       email,
       fullName,

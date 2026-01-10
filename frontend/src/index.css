@@ -36,6 +36,15 @@ body {
   --chat-border: #374151;
 }
 
+
+.str-chat__empty-channel {
+  justify-content: flex-start !important;
+  padding-top: 0 !important;
+  color: var(--chat-text);
+  background-color: var(--chat-bg) !important; /* Add this */
+}
+
+
 /* =========================================================
    STREAM CHAT – BASE RESET
 ========================================================= */

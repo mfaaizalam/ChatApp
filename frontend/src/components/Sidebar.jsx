@@ -127,6 +127,16 @@ const Sidebar = ({ showSidebar, closeSidebar }) => {
             <BellIcon className="size-5 text-white" />
             <span>Notifications</span>
           </Link>
+     <Link
+  to="/onboarding?force=true"
+  className={`btn btn-ghost justify-start w-full gap-3 px-3 normal-case ${
+    currentPath.startsWith("/onboarding") ? "btn-active" : ""
+  }`}
+>
+  <HomeIcon className="size-5 text-white" />
+  <span>Edit Profile</span>
+</Link>
+
         </nav>
 
         {/* USER PROFILE */}
