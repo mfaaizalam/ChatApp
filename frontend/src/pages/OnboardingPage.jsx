@@ -196,7 +196,7 @@ const OnboardingPage = () => {
                   disabled={isPending}
                   className="w-full bg-gradient-to-r from-emerald-500 to-cyan-500 text-white py-3 rounded-xl font-black"
                 >
-                  {isPending ? "loading..." : "let's go 🚀"}
+                  {isPending ? "loading" : "let's go 🚀"}
                 </button>
               </form>
             </div>
