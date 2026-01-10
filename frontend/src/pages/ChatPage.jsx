@@ -27,7 +27,7 @@ const ChatPage = () => {
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);
-
+  
   const { authUser } = useAuthUser();
 
   const { data: tokenData } = useQuery({
@@ -95,7 +95,7 @@ const ChatPage = () => {
   if (loading || !chatClient || !channel) return <ChatLoader />;
 
   return (
-    <div className="ml-44 h-[93vh]">
+    <div className="h-[93vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
           <div className="w-full relative">
@@ -113,4 +113,3 @@ const ChatPage = () => {
   );
 };
 export default ChatPage;
-

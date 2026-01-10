@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage.jsx";
 import OnboardingPage from "./pages/OnboardingPage.jsx"
 import CallPage from "./pages/CallPage.jsx"
 import ChatPage from "./pages/ChatPage.jsx"
+import Chatbot from './pages/Chatbot.jsx'
 import toast, { Toaster } from 'react-hot-toast';
 
 import axios from 'axios'
@@ -76,7 +77,7 @@ const App = () => {
            )}
           />   
           <Route path="/onboarding" element={isAuthenticated?<OnboardingPage/>:<Navigate to= "/login"/>}/>
-
+             <Route path="/chatbot" element={<Chatbot />} />
           
            {/* <Route
           path="/onboarding"

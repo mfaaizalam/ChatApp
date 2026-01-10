@@ -18,23 +18,39 @@
 // };
 // export default Layout;
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./Navbar";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, showSidebar = true }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const toggleSidebar = () => setSidebarOpen(prev => !prev);
+  const toggleSidebar = () => {
+    if (!showSidebar) return;
+    setSidebarOpen(prev => !prev);
+  };
+
   const closeSidebar = () => setSidebarOpen(false);
 
-  return (
-    <div className="min-h-screen flex">
-      <Sidebar showSidebar={sidebarOpen} closeSidebar={closeSidebar} />
+  useEffect(() => {
+    if (!showSidebar) {
+      setSidebarOpen(false);
+    }
+  }, [showSidebar]);
 
-      <div className="flex-1 flex flex-col">
+  return (
+    <div className="min-h-screen flex w-full">
+      {showSidebar && (
+        <Sidebar showSidebar={sidebarOpen} closeSidebar={closeSidebar} />
+      )}
+
+      <div className="flex-1 flex flex-col w-full">
         <Navbar onMenuClick={toggleSidebar} />
-        <main className="flex-1 overflow-y-auto pt-16">{children}</main>
+
+        <main className="flex-1 pt-16 overflow-hidden">
+
+          {children}
+        </main>
       </div>
     </div>
   );

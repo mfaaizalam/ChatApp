@@ -1,38 +1,156 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html,
 body {
   height: 100%;
   overflow: hidden;
+  background-color: var(--body-bg);
+  color: var(--body-text);
+  transition: background-color 0.3s, color 0.3s;
 }
-.str-chat__channel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(to bottom, #c9e8c9, #b7e7bb);
+
+/* ================= THEME VARIABLES ================= */
+[data-theme="light"] {
+  --body-bg: #f9fafb;
+  --body-text: #111827;
+  --chat-bg: #ffffff;
+  --chat-text: #111827;
+  --chat-header-bg: #ffffff;
+  --chat-msg-bg: #e5e7eb;
+  --chat-msg-text: #111827;
+  --chat-input-bg: #ffffff;
+  --chat-border: #e5e7eb;
+}
+
+[data-theme="dark"] {
+  --body-bg: #0B1220;
+  --body-text: #f9fafb;
+  --chat-bg: #111827;
+  --chat-text: #f9fafb;
+  --chat-header-bg: #111827;
+  --chat-msg-bg: #1e293b;
+  --chat-msg-text: #f9fafb;
+  --chat-input-bg: #1f2937;
+  --chat-border: #374151;
+}
+
+/* =========================================================
+   STREAM CHAT – BASE RESET
+========================================================= */
+.str-chat,
+.str-chat__container,
+.str-chat__channel,
+.str-chat__main-panel {
   height: 100%;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--chat-bg) !important;
 }
 
 .str-chat__container {
-  max-width: 1200px;
-  width: 100%;
-  height: 80% !important;
-  margin: 0 auto !important;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin: 0 !important;
+  border-radius: 0;
   overflow: hidden;
 }
 
-.str-chat__list {
-  background-color: #ffffff;
-  padding: 12px;
+/* =========================================================
+   CHANNEL LAYOUT
+========================================================= */
+.str-chat__channel {
+  display: flex; /* fixed -> flex */
+  flex-direction: column;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
 }
 
+/* =========================================================
+   MESSAGE LIST (NO GAPS)
+========================================================= */
+.str-chat__list {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--chat-bg) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  /* hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+}
+.str-chat__list::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* =========================================================
+   DATE / SYSTEM MESSAGE SPACING
+========================================================= */
+.str-chat__date-separator {
+  margin: 8px 0 !important;
+  color: var(--chat-text);
+}
+
+.str-chat__system-message {
+  margin: 4px 0 !important;
+  color: var(--chat-text);
+}
+
+/* =========================================================
+   EMPTY CHANNEL FIX
+========================================================= */
+.str-chat__empty-channel {
+  justify-content: flex-start !important;
+  padding-top: 0 !important;
+  color: var(--chat-text);
+}
+
+/* =========================================================
+   MESSAGE INPUT
+========================================================= */
+.str-chat__message-input {
+  flex-shrink: 0;
+  border-top: 1px solid var(--chat-border);
+  background-color: var(--chat-input-bg);
+  color: var(--chat-text);
+}
+
+/* =========================================================
+   CHANNEL HEADER
+========================================================= */
+.str-chat__channel-header {
+  box-shadow: none !important;
+  border-bottom: 1px solid var(--chat-border) !important;
+  background-color: var(--chat-header-bg) !important;
+  color: var(--chat-text) !important;
+}
+
+.str-chat__channel-header *,
+.str-chat__channel-header *:focus {
+  outline: none !important;
+}
+
+/* =========================================================
+   REMOVE STREAM DEFAULT COLORS / SHADOWS
+========================================================= */
 .str-chat__list-notifications {
   display: none;
 }
 
-.str-chat__message-input {
-  border-top: 1px solid #090707;
+/* =========================================================
+   MESSAGE BUBBLES
+========================================================= */
+.str-chat__message {
+  background-color: var(--chat-msg-bg) !important;
+  color: var(--chat-msg-text) !important;
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+}
+
+.str-chat__message--me {
+  background-color: var(--chat-msg-user-bg) !important;
+  color: #ffffff !important;
 }
