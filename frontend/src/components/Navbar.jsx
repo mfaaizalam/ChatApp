@@ -47,15 +47,50 @@
 
 
 import { Link } from "react-router";
-import { BellIcon, LogOutIcon, MenuIcon } from "lucide-react";
+import { BellIcon, LogOutIcon, MenuIcon, Sun, Moon } from "lucide-react";
 import useLogout from "../hooks/useLogout";
+import { useState, useEffect } from "react";
 
 const Navbar = ({ onMenuClick }) => {
   const { logoutMutation } = useLogout();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  // Load theme from localStorage on mount
+  useEffect(() => {
+    try {
+      const savedTheme = localStorage.getItem('vTalkTheme');
+      if (savedTheme) {
+        const isDark = savedTheme === 'dark';
+        setIsDarkMode(isDark);
+        applyTheme(isDark);
+      }
+    } catch (error) {
+      console.log('localStorage not available');
+    }
+  }, []);
+
+  const applyTheme = (isDark) => {
+    // Apply theme to document root or body
+    if (isDark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  };
+
+  const toggleTheme = () => {
+    const newTheme = !isDarkMode;
+    setIsDarkMode(newTheme);
+    applyTheme(newTheme);
+    try {
+      localStorage.setItem('vTalkTheme', newTheme ? 'dark' : 'light');
+    } catch (error) {
+      console.log('localStorage not available');
+    }
+  };
 
   return (
     <nav className="text-white fixed top-0 left-0 right-0 z-50 h-16 flex items-center bg-gradient-to-br from-[#0B1220] via-[#070D1A] to-[#020617] border-b border-base-300 px-4">
-
       <div className="flex items-center w-full">
         {/* Menu button for mobile */}
         <button
@@ -68,6 +103,19 @@ const Navbar = ({ onMenuClick }) => {
         <div className="text-4xl font-bold">Vtalk</div>
 
         <div className="ml-auto flex items-center gap-3 sm:gap-4">
+          {/* Theme toggle button */}
+          <button 
+            className="btn btn-ghost btn-circle" 
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+          >
+            {isDarkMode ? (
+              <Sun className="h-5 w-5 text-amber-400" />
+            ) : (
+              <Moon className="h-5 w-5 text-indigo-400" />
+            )}
+          </button>
+
           <Link to={"/notifications"}>
             <button className="btn btn-ghost btn-circle">
               <BellIcon className="h-6 w-6 text-white" />
