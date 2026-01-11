@@ -9,9 +9,9 @@ import aichat from "./routes/ai.routes.js"
 import cors from "cors";
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT
+
 app.use(cors({
-    origin:["http://localhost:5173",    
+    origin:["http://localhost:5173", "https://chat-app-3gwr.vercel.app",
     "http://localhost:5174","http://localhost:5175"],//allow frontend to send cookies
     credentials:true,
 }))
@@ -25,6 +25,8 @@ app.use("/api/user",userRoutes)
 app.use("/api/chat",chatRoutes)
 app.use("/chat", chatRoutes);
 app.use("/chat",aichat );
+
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,()=>{
     console.log(`Server is running on PORT ${PORT}`);
