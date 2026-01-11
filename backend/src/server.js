@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:["http://localhost:5173", "https://chat-app-3gwr.vercel.app",
+    origin:["http://localhost:5173", "https://chat-app-hsrq.vercel.app",
     "http://localhost:5174","http://localhost:5175"],//allow frontend to send cookies
     credentials:true,
 }))
