@@ -1,17 +1,11 @@
-// import axios from "axios";
-
-// export const axiosInstance = axios.create({
-//     baseURL:"http://localhost:5001/api",
-//     withCredentials:true, //send cookies with requests
-// })
-
-// src/lib/axios.js
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-  baseURL: "https://chatapp-production-62ad.up.railway.app",
-  withCredentials: true,
-});
+    baseURL:"http://localhost:5001/api",
+    withCredentials:true, //send cookies with requests
+})
+
+// src/lib/axios.js
 
 // frontend/src/axiosInstance.js
 // import axios from "axios";
