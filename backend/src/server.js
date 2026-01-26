@@ -25,7 +25,7 @@ app.use("/api/user",userRoutes)
 app.use("/api/chat",chatRoutes)
 app.use("/chat", chatRoutes);
 app.use("/chat",aichat );
-
+app.get("/", (req, res) => res.send("Backend is running!"));
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,()=>{
