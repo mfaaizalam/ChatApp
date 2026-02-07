@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const axiosInstance = axios.create({
-    baseURL:"https://chat-app-phi-silk-48.vercel.app",
-        // baseURL:"http://localhost:5001/api",
+    // baseURL:"https://chat-app-phi-silk-48.vercel.app/api",
+        baseURL:"http://localhost:5001/api",
     withCredentials:true, //send cookies with requests
 })
 
