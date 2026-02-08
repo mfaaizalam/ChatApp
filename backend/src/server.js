@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:"*",
+    origin:"https://chat-app-keu9.vercel.app",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials:true,
 }))
