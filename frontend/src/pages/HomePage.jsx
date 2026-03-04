@@ -207,7 +207,14 @@ const HomePage = () => {
                         </span>
                       </div>
 
-                      {user.bio && <p className="text-sm opacity-70">{user.bio}</p>}
+                      {user.bio && (
+  <p className="text-sm opacity-70 break-words whitespace-pre-wrap" style={{ maxWidth: "100%", wordBreak: "break-word" }}>
+    {user.bio.length > 40 
+      ? user.bio.match(/.{1,40}/g).join("\n") 
+      : user.bio
+    }
+  </p>
+)}
 
                       {/* Send Friend Request button */}
                       <button
@@ -251,6 +258,10 @@ const HomePage = () => {
           )}
         </section>
       </div>
+       {/* Footer */}
+      <footer className="w-full  py-10 bg-gradient-to-br text-white text-center text-sm shadow-inner">
+        
+      </footer>
     </div>
     </div>
   );

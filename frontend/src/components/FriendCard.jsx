@@ -2,6 +2,12 @@ import { Link } from "react-router";
 import { LANGUAGE_TO_FLAG } from "../constants";
 
 const FriendCard = ({ friend }) => {
+  // truncate bio 40 chars max
+  const bioText =
+    friend.bio && friend.bio.length > 40
+      ? friend.bio.slice(0, 40) + "..."
+      : friend.bio;
+
   return (
     <div className="card bg-base-200 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
       <div className="card-body p-4 flex flex-col flex-1">
@@ -24,6 +30,13 @@ const FriendCard = ({ friend }) => {
             Learning: {friend.learningLanguage}
           </div>
         </div>
+
+        {/* BIO */}
+        {bioText && (
+          <p className="text-sm opacity-70 mb-3 break-words">
+            {bioText}
+          </p>
+        )}
 
         {/* MESSAGE BUTTON */}
         <div className="mt-auto">

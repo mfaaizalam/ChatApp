@@ -33,17 +33,8 @@ body {
   --chat-msg-bg: #1e293b;
   --chat-msg-text: #f9fafb;
   --chat-input-bg: #1f2937;
-  --chat-border: #374151;
+  --chat-border: #021534;
 }
-
-
-.str-chat__empty-channel {
-  justify-content: flex-start !important;
-  padding-top: 0 !important;
-  color: var(--chat-text);
-  background-color: var(--chat-bg) !important; /* Add this */
-}
-
 
 /* =========================================================
    STREAM CHAT – BASE RESET
@@ -68,14 +59,14 @@ body {
    CHANNEL LAYOUT
 ========================================================= */
 .str-chat__channel {
-  display: flex; /* fixed -> flex */
+  display: flex;
   flex-direction: column;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
 
 /* =========================================================
-   MESSAGE LIST (NO GAPS)
+   MESSAGE LIST
 ========================================================= */
 .str-chat__list {
   flex: 1;
@@ -88,15 +79,15 @@ body {
   flex-direction: column;
   justify-content: flex-start;
 
-  /* hide scrollbar */
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
+
 .str-chat__list::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
+  display: none;
 }
 
 /* =========================================================
-   DATE / SYSTEM MESSAGE SPACING
+   DATE / SYSTEM MESSAGE
 ========================================================= */
 .str-chat__date-separator {
   margin: 8px 0 !important;
@@ -109,12 +100,13 @@ body {
 }
 
 /* =========================================================
-   EMPTY CHANNEL FIX
+   EMPTY CHANNEL
 ========================================================= */
 .str-chat__empty-channel {
   justify-content: flex-start !important;
   padding-top: 0 !important;
   color: var(--chat-text);
+  background-color: var(--chat-bg) !important;
 }
 
 /* =========================================================
@@ -143,7 +135,7 @@ body {
 }
 
 /* =========================================================
-   REMOVE STREAM DEFAULT COLORS / SHADOWS
+   REMOVE DEFAULT STREAM COLORS
 ========================================================= */
 .str-chat__list-notifications {
   display: none;
@@ -162,4 +154,21 @@ body {
 .str-chat__message--me {
   background-color: var(--chat-msg-user-bg) !important;
   color: #ffffff !important;
+}
+
+/* =========================================================
+   ✅ DARK MODE TYPING TEXT FIX (NO OTHER CHANGE)
+========================================================= */
+.str-chat__textarea textarea,
+.str-chat__message-textarea,
+.str-chat__message-input textarea {
+  background-color: var(--chat-input-bg) !important;
+  color: var(--chat-text) !important;
+  caret-color: var(--chat-text) !important;
+}
+
+.str-chat__textarea textarea::placeholder,
+.str-chat__message-input textarea::placeholder {
+  color: var(--chat-text) !important;
+  opacity: 0.6;
 }

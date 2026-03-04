@@ -240,16 +240,22 @@ const OnboardingPage = () => {
                 Bio
               </label>
               <textarea
-                value={formState.bio}
-                onChange={(e) => setFormState({ ...formState, bio: e.target.value })}
-                placeholder="Tell us about yourself..."
-                rows={3}
-                className={`w-full px-3 py-3 text-sm rounded-xl transition-all resize-none ${
-                  isDarkMode 
-                    ? 'bg-slate-900/50 border-2 border-slate-800 text-white placeholder:text-slate-500 focus:border-blue-500 focus:bg-slate-900'
-                    : 'bg-white border-2 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 shadow-sm'
-                } focus:outline-none focus:ring-2 focus:ring-blue-500/10`}
-              />
+  value={formState.bio}
+  onChange={(e) =>
+    setFormState({
+      ...formState,
+      bio: e.target.value.slice(0, 80), // ✅ max 40 chars
+    })
+  }
+  placeholder="Tell us about yourself..."
+  rows={3}
+  maxLength={80} // ✅ limit typing
+  className={`w-full px-3 py-3 text-sm rounded-xl transition-all resize-none ${
+    isDarkMode
+      ? 'bg-slate-900/50 border-2 border-slate-800 text-white placeholder:text-slate-500 focus:border-blue-500 focus:bg-slate-900'
+      : 'bg-white border-2 border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-blue-500 shadow-sm'
+  } focus:outline-none focus:ring-2 focus:ring-blue-500/10`}
+/>
             </div>
 
             {/* Languages */}
